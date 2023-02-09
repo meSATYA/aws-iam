@@ -1,25 +1,3 @@
-locals {
-  aws_account_id = "670121248505"
-}
-
-provider "aws" {
-  allowed_account_ids = [
-    local.aws_account_id
-  ]
-  region = "us-east-1"
-  profile = "default"
-}
-
-resource "aws_iam_group" "infra_admin" {
-  name = "infra_admin"
-}
-
-resource "aws_iam_group_policy" "infra_admin_user_policy" {
-  name = "infra_admin_user_policy"
-  group = aws_iam_group.infra_admin.name
-  policy = data.aws_iam_policy_document.infra_admin.json
-}
-
 data "aws_iam_policy_document" "infra_admin" {
   version = "2012-10-17"
   statement { 
@@ -104,17 +82,6 @@ data "aws_iam_policy_document" "infra_admin" {
 }
 }
 
-
-resource "aws_iam_group" "infra_developer" {
-  name = "infra_developer"
-}
-
-resource "aws_iam_group_policy" "infra_developer_user_policy" {
-  name = "infra_admin_user_policy"
-  group = aws_iam_group.infra_developer.name
-  policy = data.aws_iam_policy_document.infra_developer.json
-}
-
 data "aws_iam_policy_document" "infra_developer" {
   version = "2012-10-17"
   statement { 
@@ -191,15 +158,6 @@ data "aws_iam_policy_document" "infra_developer" {
 }
 }
 
-resource "aws_iam_group" "infra_viewer" {
-  name = "infra_viewer"
-}
-
-resource "aws_iam_group_policy" "infra_viewer_user_policy" {
-  name = "infra_viewer_user_policy"
-  group = aws_iam_group.infra_viewer.name
-  policy = data.aws_iam_policy_document.infra_viewer.json
-}
 
 data "aws_iam_policy_document" "infra_viewer" {
   version = "2012-10-17"
@@ -277,15 +235,6 @@ data "aws_iam_policy_document" "infra_viewer" {
 }
 }
 
-resource "aws_iam_group" "infra_iam_admin" {
-  name = "infra_iam_admin"
-}
-
-resource "aws_iam_group_policy" "infra_iam_admin_user_policy" {
-  name = "infra_iam_admin_user_policy"
-  group = aws_iam_group.infra_iam_admin.name
-  policy = data.aws_iam_policy_document.infra_iam_admin.json
-}
 
 data "aws_iam_policy_document" "infra_iam_admin" {
   version = "2012-10-17"
@@ -295,6 +244,6 @@ data "aws_iam_policy_document" "infra_iam_admin" {
         "iam:*",
     ]
     resources = ["*"]
+    sid = "IamAdminServices"
   }
 }
-

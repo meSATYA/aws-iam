@@ -1,3 +1,6 @@
 ### Terraform ###
 **/.terraform
 **/.terraform.*
+**/terraform.*
+**/tfplan
+**/tfplan.json
